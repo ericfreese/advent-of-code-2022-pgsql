@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+() {
+  set -euo pipefail
+
+  solution="$1"
+  tmp_file="$2"
+
+  day_part="${solution:t:r}"
+  day="${day_part%-*}"
+
+  psql \
+    -h localhost \
+    -U postgres \
+    --set input="$(cat "inputs/$day")" \
+    -f "$solution" \
+  > "$tmp_file"
+
+  cat "$tmp_file"
+
+  if [[ -e "answers/$day_part" ]]; then
+    diff -u "answers/$day_part" "$tmp_file"
+  fi
+} "$1" =(:)
