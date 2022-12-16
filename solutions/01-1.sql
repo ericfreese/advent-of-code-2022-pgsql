@@ -8,12 +8,12 @@ with food_items as (
     unnest(string_to_array(chunk, E'\n'))::integer calories
   from chunks
 ),
-total_elf_calories as (
+elf_calories as (
   select
     sum(calories) calories
   from food_items
   group by elf_id
 )
 select
-  max(calories) total_calories
-from total_elf_calories
+  max(calories) max_calories
+from elf_calories

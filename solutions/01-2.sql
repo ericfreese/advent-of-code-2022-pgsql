@@ -8,7 +8,7 @@ with food_items as (
     unnest(string_to_array(chunk, E'\n'))::integer calories
   from chunks
 ),
-top_total_elf_calories as (
+top_elf_calories as (
   select
     sum(calories) calories
   from food_items
@@ -18,4 +18,4 @@ top_total_elf_calories as (
 )
 select
   sum(calories) total_calories
-from top_total_elf_calories
+from top_elf_calories
