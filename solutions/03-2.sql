@@ -18,8 +18,8 @@ rucksacks as (
   select
     row_number() over () rucksack_id,
     (row_number() over () - 1) / 3 group_id,
-    substring(line, 1, length(line) / 2) first_compartment,
-    substring(line, length(line) / 2 + 1, length(line) / 2) second_compartment
+    left(line, length(line) / 2) first_compartment,
+    right(line, length(line) / 2) second_compartment
   from lines
 ),
 rucksack_compartments as (
