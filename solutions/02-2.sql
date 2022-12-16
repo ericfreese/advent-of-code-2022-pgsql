@@ -16,11 +16,11 @@ shapes (shape, losing_shape, winning_shape) as (
     ('paper', 'rock', 'scissors'),
     ('scissors', 'paper', 'rock')
 ),
-lines as (
-  select
-    string_to_array(unnest(string_to_array(:'input', E'\n')), ' ') match
-),
 matches as (
+  with lines as (
+    select
+      string_to_array(unnest(string_to_array(:'input', E'\n')), ' ') match
+  )
   select
     case match[1]
       when 'A' then 'rock'
