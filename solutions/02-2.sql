@@ -10,7 +10,7 @@ outcome_scores (outcome, score) as (
     ('draw', 3),
     ('win', 6)
 ),
-winners (shape, other_shape) as (
+shapes (shape, losing_shape) as (
   values
     ('rock', 'scissors'),
     ('paper', 'rock'),
@@ -39,12 +39,12 @@ outcomes as (
     case m.outcome
       when 'draw' then m.their_play
       when 'win' then w.shape
-      when 'loss' then l.other_shape
+      when 'loss' then l.losing_shape
     end my_play,
     m.outcome
   from matches m
-  inner join winners w on w.other_shape = m.their_play
-  inner join winners l on l.shape = m.their_play
+  inner join shapes w on w.losing_shape = m.their_play
+  inner join shapes l on l.shape = m.their_play
 )
 select
   sum(ss.score + os.score) total_score
