@@ -10,6 +10,7 @@
   day="${day_part%-*}"
 
   psql \
+    --quiet \
     -h localhost \
     -U postgres \
     --set input="$(cat "inputs/$day")" \
